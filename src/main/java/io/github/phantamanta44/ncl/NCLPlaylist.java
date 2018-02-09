@@ -3,6 +3,7 @@ package io.github.phantamanta44.ncl;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.InternalAudioTrack;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class NCLPlaylist implements AudioPlaylist {
     NCLPlaylist(AudioPlaylist delegate, AudioSourceManager manager) {
         this.delegate = delegate;
         this.tracks = delegate.getTracks().stream()
-                .map(t -> new NCLAudioTrack(t, manager))
+                .map(t -> new NCLAudioTrack((InternalAudioTrack)t, manager))
                 .collect(Collectors.toList());
         AudioTrack delSel = delegate.getSelectedTrack();
         if (delSel != null) {
